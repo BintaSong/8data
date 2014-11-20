@@ -73,9 +73,9 @@ int node::heuristic(int nowStatue[N][N], int targetStatus[N][N]){
        cout<<"in FUN2"<<endl;
        for(i=0;i<N*N;i++)
            for(j=0;j<N*N;j++)
-                if(nowStatue[i/3][i%3]==targetStatus[j/3][j%3])
+                if(nowStatue[i/3][i%3]==targetStatus[j/3][j%3]&&nowStatue[i/3][i%3]!=0)
                 {
-                    con+=(int)sqrt(abs(i/3-j/3)+abs(i%3-j%3));
+                    con+=(int)sqrt(abs(i/3-j/3)*abs(i/3-j/3)+abs(i%3-j%3)*abs(i%3-j%3));
                     continue;
                 }
     }
@@ -84,7 +84,7 @@ int node::heuristic(int nowStatue[N][N], int targetStatus[N][N]){
         cout<<"in FUN3"<<endl;
         for(i=0;i<N*N;i++)
            for(j=0;j<N*N;j++)
-                if(nowStatue[i/3][i%3]==targetStatus[j/3][j%3])
+                if(nowStatue[i/3][i%3]==targetStatus[j/3][j%3]&&nowStatue[i/3][i%3]!=0)
                 {
                     con+=(abs(i/3-j/3)+abs(i%3-j%3));
                     continue;

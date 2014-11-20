@@ -45,7 +45,7 @@ void game::printSeqRoute(){
      {
          cout<<"before emit: "<<"close:"<<(**t).closenum<<"opennum:"<<(**t).opennum<<endl;
          emit changeStatus(**t);//这里用到复制构造函数！fuck！
-         Sleep(2000);
+         Sleep(1000);
      }
      emit endGame();
 }
@@ -58,28 +58,22 @@ void game::on_step(int ctrl){
             point--;
             emit changeStatus(**point);
         }
-        else{
-            //emit changeStatus(**point);
-            emit endGame();
-        }
+
     }
     if(ctrl==1&&point!=route.rend()){
         if(point!=route.rend()-1){
             point++;
             emit changeStatus(**point);
         }
-        else{
-            //emit changeStatus(**point);
-            emit endGame();
-        }
+
     }
 }
 void game::run(){
     node *startnode=new node(startstatus,0);
     node *endnode=new node(endstatus,0);
-    startnode->opennum=0;startnode->closenum=0;
+    startnode->opennum=1;startnode->closenum=0;
     endnode->opennum=0;endnode->closenum=0;
-
+    openNum++;
     open.push_back(startnode);
     node *temp;
     if(startnode->getReverse()%2!=endnode->getReverse()%2){

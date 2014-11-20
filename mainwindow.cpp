@@ -71,6 +71,15 @@ void MainWindow::setStatusByArray(int s[N][N])
 void MainWindow::on_pushButton_seq_clicked()
 {
     qDebug()<<"in seq"<<endl;
+    ui->pushButton_seq->setVisible(false);
+    ui->pushButton_step->setVisible(false);
+    ui->radioButton_1->setVisible(false);
+    ui->radioButton_2->setVisible(false);
+    ui->radioButton_3->setVisible(false);
+    ui->pushButton_forward->setVisible(false);
+    ui->pushButton_next->setVisible(false);
+    ui->pushButton_stop->setVisible(false);
+
     openNum=0;
     closeNum=0;
     runmode=SEQ_RUN;
@@ -90,6 +99,7 @@ void MainWindow::on_pushButton_step_clicked()
 {   qDebug()<<"in step"<<endl;
 
     ui->pushButton_seq->setVisible(false);
+    ui->pushButton_step->setVisible(false);
     ui->radioButton_1->setVisible(false);
     ui->radioButton_2->setVisible(false);
     ui->radioButton_3->setVisible(false);
@@ -137,18 +147,13 @@ void MainWindow::on_actionAa_triggered()
     //int vstart,vend;
     srand((unsigned)time(0));
     do{
+        rindex=rand()%9;
         for(int i=0;i < 9;i++){
-            rindex = i+rand()%(9-i);
-            cout<<"i: "<<i<<" rand: "<<rindex<<endl;
-            temp=start[i/3][i%3];
-            start[i/3][i%3]=start[rindex/3][rindex%3];
-            start[rindex/3][rindex%3]=temp;
-        }
-        for(int i=0;i < 9;i++){
-            cout<<start[i/3][i%3]<<" ";
-            if(i%3==2) cout<<endl;
+            start[i/3][i%3]=sgroup[rindex][i/3][i%3];
+
         }
     }while(getReverse(start)%2 != 0);
+    setStatusByArray(start);
 }
 
 void MainWindow::on_pushButton_forward_clicked()
@@ -172,6 +177,7 @@ void MainWindow::on_pushButton_stop_clicked()
     ui->pushButton_stop->setVisible(false);
 
     ui->pushButton_seq->setVisible(true);
+    ui->pushButton_step->setVisible(true);
     ui->radioButton_1->setVisible(true);
     ui->radioButton_2->setVisible(true);
     ui->radioButton_3->setVisible(true);
@@ -181,4 +187,12 @@ void MainWindow::on_endCalcute(){
 }
 void MainWindow::on_endGame(){
     if(runmode==SEQ_RUN) ui->textBrowser->append("<font face=\"verdana\" size=\"6\" color=\"red\">游戏结束！</font>");
+    ui->pushButton_seq->setVisible(true);
+    ui->pushButton_step->setVisible(true);
+    ui->radioButton_1->setVisible(true);
+    ui->radioButton_2->setVisible(true);
+    ui->radioButton_3->setVisible(true);
+    ui->pushButton_forward->setVisible(false);
+    ui->pushButton_next->setVisible(false);
+    ui->pushButton_stop->setVisible(false);
 }

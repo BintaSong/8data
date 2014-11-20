@@ -10,7 +10,7 @@
 #include"sharehead.h"
 using namespace std;
 #define N 3
-#define M 10
+#define M 12
 class node:public QObject
 {
     Q_OBJECT
