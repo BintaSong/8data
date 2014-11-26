@@ -113,6 +113,7 @@ void game::run(){
         temp->createChild(space,child);
         for(list<node*>::iterator i=child.begin();i!=child.end();i++){
             list<node*>::iterator ret1=inOpen(**i);
+            list<node*>::iterator ret2=inClose(**i);
             if(ret1!=open.end()){//如果该孩子节点在open表中
                 if((*i)->fvalue<(*ret1)->fvalue){//跟新open表中的对应节点
                    free(*ret1);
@@ -122,9 +123,8 @@ void game::run(){
                    (*i)->closenum=closeNum;
                 }
             }
-            list<node*>::iterator ret2=inClose(**i);
-            if(ret2!=close.end()){//如果该孩子节点在close表中
-                if((*i)->fvalue<(*ret2)->fvalue){//将close表中的该节点移到open
+            else if(ret2!=close.end()){//如果该孩子节点在close表中
+                 if((*i)->fvalue<(*ret2)->fvalue){//将close表中的该节点移到open
                     open.push_front(*i);
                     ++openNum;
                     free(*ret2);
@@ -136,12 +136,14 @@ void game::run(){
                     close.erase(ret2);
                 }
             }
+            else{
             //否则，节点放入open表
             open.push_front(*i);
             ++openNum;
 
             (*i)->opennum=openNum;
             (*i)->closenum=closeNum;
+            }
         }
         close.push_front(temp);
         open.erase(t);
